@@ -121,7 +121,7 @@ minBtn.Parent = topBar
 getgenv().Target = ""
 getgenv().Prefix = "@"
 getgenv().Count = 150
-getgenv().Delay = 3.0      -- changed to 3.0
+getgenv().Delay = 3.0      -- fixed default delay (no randomness)
 getgenv().Running = false
 
 local messages = {
@@ -242,9 +242,8 @@ task.spawn(function()
             end
             msgIndex = (msgIndex % #messages) + 1
         end
-        local waitTime = getgenv().Delay + math.random(-5, 5) / 10
-        if waitTime < 0.2 then waitTime = 0.2 end
-        task.wait(waitTime)
+        -- Fixed delay – no random variation
+        task.wait(getgenv().Delay)
     end
 end)
 
