@@ -44,7 +44,7 @@ local loadTitle = Instance.new("TextLabel")
 loadTitle.Size = UDim2.new(1, 0, 0, 30)
 loadTitle.Position = UDim2.new(0, 0, 0, 10)
 loadTitle.BackgroundTransparency = 1
-loadTitle.Text = D("61S REMMAPS XR")  -- "RX SPAMMER S16"
+loadTitle.Text = D("61S REMMAPS XR")
 loadTitle.TextColor3 = Color3.fromRGB(0, 120, 255)
 loadTitle.TextSize = 18
 loadTitle.Font = Enum.Font.GothamBold
@@ -54,7 +54,7 @@ local loadSub = Instance.new("TextLabel")
 loadSub.Size = UDim2.new(1, 0, 0, 20)
 loadSub.Position = UDim2.new(0, 0, 0, 35)
 loadSub.BackgroundTransparency = 1
-loadSub.Text = D("...METSYS GNIZILAITINI")  -- "INITIALIZING SYSTEM..."
+loadSub.Text = D("...METSYS GNIZILAITINI")
 loadSub.TextColor3 = Color3.fromRGB(200, 200, 200)
 loadSub.TextSize = 12
 loadSub.Font = Enum.Font.Gotham
@@ -99,7 +99,7 @@ local topLabel = Instance.new("TextLabel")
 topLabel.Size = UDim2.new(1, -40, 1, 0)
 topLabel.Position = UDim2.new(0, 15, 0, 0)
 topLabel.BackgroundTransparency = 1
-topLabel.Text = D("NAYR & TIMUS | 61S REMMAPS XR")  -- "RX SPAMMER S16 | SUMIT & RYAN"
+topLabel.Text = D("NAYR & TIMUS | 61S REMMAPS XR")
 topLabel.TextColor3 = Color3.fromRGB(0, 120, 255)
 topLabel.TextSize = 13
 topLabel.Font = Enum.Font.GothamBold
@@ -121,7 +121,7 @@ minBtn.Parent = topBar
 getgenv().Target = ""
 getgenv().Prefix = "@"
 getgenv().Count = 150
-getgenv().Delay = 3.0      -- fixed default delay (no randomness)
+getgenv().Delay = 3.0
 getgenv().Running = false
 
 local messages = {
@@ -140,7 +140,7 @@ local function addField(labelText, defaultValue, callback)
     lbl.Size = UDim2.new(0, 80, 0, 20)
     lbl.Position = UDim2.new(0, 15, 0, yPos)
     lbl.BackgroundTransparency = 1
-    lbl.Text = D(labelText)  -- reversed labels
+    lbl.Text = D(labelText)
     lbl.TextColor3 = Color3.new(1, 1, 1)
     lbl.TextSize = 11
     lbl.Font = Enum.Font.Gotham
@@ -164,16 +164,16 @@ local function addField(labelText, defaultValue, callback)
     yPos = yPos + 35
 end
 
-addField(":YMENE", getgenv().Target, function(v) getgenv().Target = v end)          -- "ENEMY:"
-addField(":XIFERP", getgenv().Prefix, function(v) getgenv().Prefix = v end)        -- "PREFIX:"
-addField(":TNUOC", getgenv().Count, function(v) getgenv().Count = tonumber(v) or 150 end)  -- "COUNT:"
-addField(":YALED", getgenv().Delay, function(v) getgenv().Delay = tonumber(v) or 3.0 end)  -- "DELAY:" default 3.0
+addField(":YMENE", getgenv().Target, function(v) getgenv().Target = v end)
+addField(":XIFERP", getgenv().Prefix, function(v) getgenv().Prefix = v end)
+addField(":TNUOC", getgenv().Count, function(v) getgenv().Count = tonumber(v) or 150 end)
+addField(":YALED", getgenv().Delay, function(v) getgenv().Delay = tonumber(v) or 3.0 end)
 
 local toggleBtn = Instance.new("TextButton")
 toggleBtn.Size = UDim2.new(0, 130, 0, 100)
 toggleBtn.Position = UDim2.new(1, -155, 0, 60)
 toggleBtn.BackgroundColor3 = Color3.fromRGB(0, 120, 255)
-toggleBtn.Text = D("tratS")  -- "Start"
+toggleBtn.Text = D("tratS")
 toggleBtn.TextColor3 = Color3.new(1, 1, 1)
 toggleBtn.TextSize = 20
 toggleBtn.Font = Enum.Font.GothamBold
@@ -186,7 +186,7 @@ statusLabel.Size = UDim2.new(0, 200, 0, 16)
 statusLabel.Position = UDim2.new(0, 15, 1, -22)
 statusLabel.BackgroundTransparency = 1
 statusLabel.TextColor3 = Color3.fromRGB(150, 150, 150)
-statusLabel.Text = D("eldI")  -- "Idle"
+statusLabel.Text = D("eldI")
 statusLabel.TextSize = 10
 statusLabel.Font = Enum.Font.Gotham
 statusLabel.TextXAlignment = Enum.TextXAlignment.Left
@@ -194,15 +194,15 @@ statusLabel.Parent = mainFrame
 
 toggleBtn.MouseButton1Click:Connect(function()
     getgenv().Running = not getgenv().Running
-    toggleBtn.Text = getgenv().Running and D("potS") or D("tratS")  -- "Stop"/"Start"
-    statusLabel.Text = getgenv().Running and D("evitcA") or D("eldI")  -- "Active"/"Idle"
+    toggleBtn.Text = getgenv().Running and D("potS") or D("tratS")
+    statusLabel.Text = getgenv().Running and D("evitcA") or D("eldI")
 end)
 
 local floatBtn = Instance.new("TextButton")
 floatBtn.Size = UDim2.new(0, 45, 0, 45)
 floatBtn.Position = UDim2.new(0, 10, 0.5, -22)
 floatBtn.BackgroundColor3 = Color3.fromRGB(0, 120, 255)
-floatBtn.Text = D("XR")  -- "RX"
+floatBtn.Text = D("XR")
 floatBtn.TextColor3 = Color3.new(1, 1, 1)
 floatBtn.TextSize = 14
 floatBtn.Font = Enum.Font.GothamBold
@@ -224,25 +224,23 @@ floatBtn.MouseButton1Click:Connect(function()
     floatBtn.Visible = false
 end)
 
--- Main loop
+-- ===== FIXED MAIN LOOP – ONE MESSAGE, EXACT DELAY =====
 task.spawn(function()
     while true do
         if getgenv().Running and #messages > 0 then
             local msg = messages[msgIndex]
             if msg and msg ~= "" then
-                local burst = math.random(3, 5)
-                for _ = 1, burst do
-                    local cnt = getgenv().Count + math.random(-5, 5)
-                    if cnt < 1 then cnt = 1 end
-                    local finalMsg = string.rep(getgenv().Prefix, cnt) .. " " ..
-                                    (getgenv().Target ~= "" and "[" .. getgenv().Target .. "] " or "") .. msg
-                    sendMsg(finalMsg)
-                    task.wait(math.random(3, 10) / 100)
-                end
+                -- Build the final message (with prefix count and target)
+                local cnt = getgenv().Count + math.random(-5, 5)
+                if cnt < 1 then cnt = 1 end
+                local finalMsg = string.rep(getgenv().Prefix, cnt) .. " " ..
+                                (getgenv().Target ~= "" and "[" .. getgenv().Target .. "] " or "") .. msg
+                sendMsg(finalMsg)
+                -- Move to next message
+                msgIndex = (msgIndex % #messages) + 1
             end
-            msgIndex = (msgIndex % #messages) + 1
         end
-        -- Fixed delay – no random variation
+        -- Always wait exactly the set delay (no randomness)
         task.wait(getgenv().Delay)
     end
 end)
