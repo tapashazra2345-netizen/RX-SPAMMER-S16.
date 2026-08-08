@@ -119,12 +119,12 @@ minBtn.Parent = topBar
 
 -- Settings
 getgenv().Target = ""
-getgenv().Prefix = "`"
+getgenv().Prefix = "@"   -- default @ as you requested
 getgenv().Count = 150
 getgenv().Delay = 3.0
 getgenv().Running = false
 
--- UPDATED MESSAGE LIST with new additions
+-- Fixed messages (no editor – these are the preset ones)
 local messages = {
     "TMX MARE RYXN AND SUMIT PAPA",
     "TMX MEH ROAD ROLLER",
@@ -229,7 +229,7 @@ floatBtn.MouseButton1Click:Connect(function()
     floatBtn.Visible = false
 end)
 
--- ===== FIXED MAIN LOOP – ONE MESSAGE, EXACT DELAY =====
+-- ===== MAIN LOOP =====
 task.spawn(function()
     while true do
         if getgenv().Running and #messages > 0 then
