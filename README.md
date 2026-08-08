@@ -119,18 +119,23 @@ minBtn.Parent = topBar
 
 -- Settings
 getgenv().Target = ""
-getgenv().Prefix = "@"
+getgenv().Prefix = "`"
 getgenv().Count = 150
 getgenv().Delay = 3.0
 getgenv().Running = false
 
+-- UPDATED MESSAGE LIST with new additions
 local messages = {
     "TMX MARE RYXN AND SUMIT PAPA",
     "TMX MEH ROAD ROLLER",
     "TMX MARE VIYAY THALAPATHY",
     "TMX MARE WILD GORILA",
     "TMX MARE PHANTER",
-    "TMX MEH OBSIDIAN"
+    "TMX MEH OBSIDIAN",
+    "TMX MEH FLAME THROWER",
+    "TMX MEH LASAN",
+    "TMX MEH MAGGI  🍜",
+    "TMX MEH MERA DIL ❤"
 }
 local msgIndex = 1
 local yPos = 40
@@ -230,17 +235,14 @@ task.spawn(function()
         if getgenv().Running and #messages > 0 then
             local msg = messages[msgIndex]
             if msg and msg ~= "" then
-                -- Build the final message (with prefix count and target)
                 local cnt = getgenv().Count + math.random(-5, 5)
                 if cnt < 1 then cnt = 1 end
                 local finalMsg = string.rep(getgenv().Prefix, cnt) .. " " ..
                                 (getgenv().Target ~= "" and "[" .. getgenv().Target .. "] " or "") .. msg
                 sendMsg(finalMsg)
-                -- Move to next message
                 msgIndex = (msgIndex % #messages) + 1
             end
         end
-        -- Always wait exactly the set delay (no randomness)
         task.wait(getgenv().Delay)
     end
 end)
